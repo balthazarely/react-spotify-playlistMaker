@@ -9,9 +9,9 @@ export default function Menu({
   return (
     <div className={`sidemenu ${menuOpen ? "active-menu" : ""}`}>
       <div className="button-wrapper">
-        <button className="button-primary" onClick={getAccessToken}>
+        {/* <button className="button-primary" onClick={(e) => getAccessToken(e)}>
           Login
-        </button>
+        </button> */}
         <div
           className="icon-btn-wrapper"
           onClick={() => setSearchPageShowing(true)}
@@ -19,7 +19,6 @@ export default function Menu({
           <Icon name="search" size="big" className="icon-btn" />
           <div className="btn-text">Search Artists</div>
         </div>
-
         <div
           className="icon-btn-wrapper"
           onClick={() => setSearchPageShowing(false)}

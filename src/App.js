@@ -10,21 +10,36 @@ import "./styles/app.scss";
 function App() {
   const [accessToken, setAccessToken] = useState(null);
   const [myDetails, setMyDetails] = useState({});
+  const [myFavoriteArtists, setMyFavoriteArtists] = useState([]);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
 
-  const getAccessToken = () => {
+  const getAccessToken = (e) => {
+    // const results = Spotify.getAccessToken();
+    // setAccessToken(results);
+    e.preventDefault();
+    Spotify.getAccessToken().then((token) => {
+      console.log(token);
+      setAccessToken(token);
+    });
+  };
+
+  useEffect(() => {
+    // console.log("calling useffect");
     const results = Spotify.getAccessToken();
     setAccessToken(results);
-  };
-  const getDetails = () => {
-    const results = Spotify.getMyDetails().then((results) => {
-      console.log(results);
+
+    Spotify.getMyDetails().then((results) => {
+      // console.log(results);
+      setMyDetails(results);
     });
-    setMyDetails(results);
-  };
+    Spotify.getUsersTopArtists().then((favArtists) => {
+      // console.log(favArtists);
+      setMyFavoriteArtists(favArtists);
+    });
+  }, []);
 
   const searchHandler = (e) => {
     e.preventDefault();
@@ -38,6 +53,10 @@ function App() {
       setSearchResults(results.artists.items);
       console.log(results.artists.items);
     });
+    // Spotify.getMyDetails().then((results) => {
+    //   console.log(results);
+    //   setMyDetails(results);
+    // });
   };
 
   const [artist, setArtist] = useState([]);
@@ -75,9 +94,15 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(true);
 
   // Making playlist time
-  const [chosenArtistForPlaylist, setChosenArtistForPlaylist] = useState("");
-
   const [searchPageShowing, setSearchPageShowing] = useState(false);
+
+  // const loginToSpotfiy = () => {
+  //   console.log("trying to get details");
+  //   Spotify.getMyDetails().then((results) => {
+  //     console.log(results);
+  //     setMyDetails(results);
+  //   });
+  // };
 
   return (
     <div className="App">
@@ -99,7 +124,12 @@ function App() {
           />
         </>
       ) : (
-        <MyArtistContainer menuOpen={menuOpen} />
+        <MyArtistContainer
+          menuOpen={menuOpen}
+          accessToken={accessToken}
+          myDetails={myDetails}
+          myFavoriteArtists={myFavoriteArtists}
+        />
       )}
 
       <Menu
