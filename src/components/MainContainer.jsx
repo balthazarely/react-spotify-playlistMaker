@@ -9,6 +9,7 @@ export default function MainContainer({
   searchHandler,
   searchArtists,
   searchResults,
+  getSimilarArtists,
 }) {
   return (
     <div className={`main-container ${menuOpen ? "" : "no-margin"}`}>
@@ -21,7 +22,10 @@ export default function MainContainer({
           searchHandler={searchHandler}
           searchArtists={searchArtists}
         />
-        <ResultsContainer searchResults={searchResults} />
+        <ResultsContainer
+          searchResults={searchResults}
+          getSimilarArtists={getSimilarArtists}
+        />
       </div>
     </div>
   );

@@ -1,0 +1,36 @@
+.main-modal {
+  width: 10px;
+  background: red;
+  display: flex;
+}
+.modal-btn-wrapper {
+  display: flex;
+  justify-content: space-around;
+}
+
+.modal-btn {
+  font-weight: 800;
+  font-size: 16px;
+  padding: 20px 40px;
+  border-radius: 30px;
+  outline: none;
+  border: none;
+  box-shadow: 0px 2px 12px 1px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  &:hover {
+    background: rgb(52, 154, 218);
+  }
+}
+.success {
+  background: rgb(66, 173, 240);
+  color: white;
+}
+
+.cancle {
+  background: white;
+  color: darkgray;
+}
+
+.ui.dimmer {
+  background: transparent;
+}

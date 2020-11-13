@@ -1,9 +1,9 @@
 import React from "react";
-import { Button, Icon, Dropdown, Menu } from "semantic-ui-react";
+import { Label, Icon, Dropdown, Menu } from "semantic-ui-react";
 
-export default function SingleResult({ artist, index }) {
+export default function SingleResult({ artist, index, getSimilarArtists }) {
   return (
-    <div className={`result-container`}>
+    <div className={"result-container"}>
       <index className="index-wrapper">
         <div>{index}</div>
       </index>
@@ -13,11 +13,17 @@ export default function SingleResult({ artist, index }) {
         alt="artist-image"
       />
       <div className="text-wrapper">
-        <div className="image-text">{artist.name}</div>
-        <div className="icon-wrapper">
-          {/* <Icon className="image-icon" name="ellipsis vertical" /> */}
-          <button>Make Playlist</button>
+        <div className="header">{artist.name}</div>
+        <div className="genre-wrapper">
+          {artist.genres.slice(0, 3).map((genre) => {
+            return <Label size="tiny">{genre}</Label>;
+          })}
         </div>
+      </div>
+      <div className="btn-wrapper">
+        <button onClick={() => getSimilarArtists(artist.id)}>
+          Make Playlist
+        </button>
       </div>
     </div>
   );

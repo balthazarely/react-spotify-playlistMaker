@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import MainConatiner from "./components/MainContainer";
 import Menu from "./components/Menu";
 import Nav from "./components/Nav";
-
+import MyModal from "./components/MyModal";
 import Login from "./components/Login";
 import Playlist from "./components/Playlist";
 import Spotify from "./utils/spotify";
@@ -14,8 +14,7 @@ function App() {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [artist, setArtist] = useState([]);
-  const [similarArtists, setSimilarArtists] = useState([]);
+  const [modalOpen, setModalOpen] = useState(true);
 
   const getAccessToken = () => {
     const results = Spotify.getAccessToken();
@@ -42,21 +41,25 @@ function App() {
     });
   };
 
-  const selectArtist = (artist) => {
-    setArtist(artist);
-    console.log(artist);
-  };
+  // const selectArtist = (artist) => {
+  //   setArtist(artist);
+  //   console.log(artist);
+  // };
 
-  const getSimilarArtists = (e) => {
-    e.preventDefault();
-    Spotify.getSimilarArtists(artist.id).then((results) => {
+  const [artist, setArtist] = useState([]);
+  const [similarArtists, setSimilarArtists] = useState([]);
+
+  const getSimilarArtists = (artistID) => {
+    // e.preventDefault();
+    setModalOpen(true);
+    Spotify.getSimilarArtists(artistID).then((results) => {
       console.log(results);
       setSimilarArtists(results.artists);
     });
   };
 
-  const getTopSongsSimilarArtists = async (e) => {
-    e.preventDefault();
+  const getTopSongsSimilarArtists = async (playListName) => {
+    // e.preventDefault();
     let artistSongArray = [];
 
     await similarArtists.map((artist) => {
@@ -69,15 +72,20 @@ function App() {
       let flattened = artistSongArray.flat();
       let mapped = [].concat(...flattened.map(Object.values));
       console.log(mapped, "this is the final array");
-      let name = "test Playlist 1";
+      let name = playListName;
       let songURI = mapped;
       Spotify.savePlaylist(name, songURI);
     }, 3000);
   };
 
   const [menuOpen, setMenuOpen] = useState(true);
+
+  // Making playlist time
+  const [chosenArtistForPlaylist, setChosenArtistForPlaylist] = useState("");
+
   return (
     <div className="App">
+      {artist.name}
       {/* <button onClick={getAccessToken}>Login</button>
       <button onClick={getDetails}>getDetails</button>
       <form>
@@ -113,6 +121,13 @@ function App() {
         searchHandler={searchHandler}
         searchArtists={searchArtists}
         searchResults={searchResults}
+        getSimilarArtists={getSimilarArtists}
+      />
+
+      <MyModal
+        modalOpen={modalOpen}
+        setModalOpen={setModalOpen}
+        getTopSongsSimilarArtists={getTopSongsSimilarArtists}
       />
       <Menu menuOpen={menuOpen} />
     </div>
