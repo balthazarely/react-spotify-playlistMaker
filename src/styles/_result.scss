@@ -8,22 +8,29 @@
   position: relative;
   cursor: pointer;
   &:hover {
-    background: rgb(241, 241, 241);
+    background: rgb(247, 247, 247);
     button {
       opacity: 1;
     }
   }
   button {
     background: transparent;
+    transition: all 0.35s;
     cursor: pointer;
-    padding: 0.5rem 1.5rem;
+    padding: 0.8rem 2rem;
     transition: all 0.3 ease;
     outline: none;
-    font-size: 14px;
+    border: none;
+    font-size: 10px;
+    font-weight: 800;
     margin-right: 10px;
+    text-transform: uppercase;
+    color: white;
     opacity: 0;
+    border-radius: 20px;
+    background: #07c7f2;
     &:hover {
-      background: rgb(141, 141, 141);
+      background: #03aed4;
       color: white;
     }
   }
@@ -64,5 +71,15 @@
     font-size: 12px;
     font-weight: 800;
     color: rgb(175, 175, 175);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .result-container button {
+    font-size: 8px;
+    padding: 0.6rem 1rem;
+  }
+  .genre-wrapper {
+    display: none;
   }
 }

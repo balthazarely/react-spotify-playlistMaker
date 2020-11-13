@@ -24,7 +24,6 @@ const Spotify = {
       window.location = accessUrl;
     }
   },
-
   searchArtists(searchTerm) {
     const accessToken = Spotify.getAccessToken();
     const headers = {

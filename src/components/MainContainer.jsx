@@ -1,6 +1,5 @@
 import React from "react";
-import { Image } from "semantic-ui-react";
-import Accordian from "./Accordian";
+
 import ResultsContainer from "./ResultsContainer";
 import SearchInput from "./SearchInput";
 
@@ -14,8 +13,20 @@ export default function MainContainer({
   return (
     <div className={`main-container ${menuOpen ? "" : "no-margin"}`}>
       <div className="container">
-        <div className="main-image-wrapper">
-          <Image src="dj.jpg" />
+        <div className="main-header">Search Artist </div>
+        <div
+          className="main-image-wrapper"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, rgba(7, 176, 242, 0.3), rgba(7, 176, 242, 0.3)), url('/dj.jpg')",
+            backgroundBlendMode: "multiply",
+            // backgroundImage: "url(/dj.jpg)",
+            backgroundPosition: "top",
+            // backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+          }}
+        >
+          {/* <Image src="dj.jpg" /> */}
         </div>
 
         <SearchInput
