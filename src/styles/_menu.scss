@@ -1,0 +1,28 @@
+.sidemenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 15rem;
+  height: 100vh;
+  box-shadow: 2px 2px 50px rgb(206, 206, 206);
+  background: white;
+  //   background: linear-gradient(#25a6cd, #1767a6);
+  transition: all 0.35s;
+  transform: translateX(-100%);
+  //   opacity: 0;
+  //   overflow: scroll;
+  h2 {
+    padding: 2rem;
+  }
+}
+
+.active-menu {
+  transform: translateX(0%);
+}
+
+@media screen and (max-width: 768px) {
+  .sidemenu {
+    // width: 100%;
+    // display: none;
+  }
+}
