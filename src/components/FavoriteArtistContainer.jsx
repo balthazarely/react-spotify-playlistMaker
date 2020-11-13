@@ -1,6 +1,6 @@
 import React from "react";
 import FavoriteArtistCard from "./FavoriteArtistCard";
-import { Grid, Image, Segment } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 
 export default function FavoriteArtistContainer({ myFavoriteArtists }) {
   console.log(myFavoriteArtists);

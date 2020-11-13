@@ -11,9 +11,8 @@ export default function FavoriteArtistCard({ artist }) {
           // wrapped
         />
 
-        <div className="artist-name-bg">
-          <div className="artist-name">{artist.name}</div>
-        </div>
+        <div className="artist-name-bg"></div>
+        <div className="artist-name">{artist.name}</div>
         <a target="BLANK" href={artist.external_urls.spotify}>
           <Icon
             className="artist-play-icon"

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import FavoriteArtistContainer from "./FavoriteArtistContainer";
+import { Tab, Dimmer, Loader, Image } from "semantic-ui-react";
 
 export default function MyArtistsContainer({
   menuOpen,
@@ -8,19 +9,21 @@ export default function MyArtistsContainer({
   myFavoriteArtists,
 }) {
   const [isLoggedIn, setIsLoggedIn] = useState("");
-  //   const [accessToken, setAccessToken] = useState("");
 
-  const loginToSpotify = () => {
-    // const results = Spotify.getAccessToken();
-    // setAccessToken(results);
-    // console.log("welcome");
-    // Spotify.getUsersTopArtists();
-  };
-
-  //   useEffect(() => {
-  //     const results = Spotify.getAccessToken();
-  //     setAccessToken(results);
-  //   }, []);
+  const panes = [
+    {
+      menuItem: "Favorite Artists",
+      render: () => (
+        <Tab.Pane attached={false}>
+          <FavoriteArtistContainer myFavoriteArtists={myFavoriteArtists} />
+        </Tab.Pane>
+      ),
+    },
+    {
+      menuItem: "Favorites Songs",
+      render: () => <Tab.Pane attached={false}> </Tab.Pane>,
+    },
+  ];
 
   return (
     <div className={`main-container ${menuOpen ? "" : "no-margin"}`}>
@@ -29,8 +32,9 @@ export default function MyArtistsContainer({
           className="main-header"
           //  style={{ top: "330px" }}
         >
-          Most Played Artists{" "}
+          Most Played Artists
         </div>
+
         <div
           className="main-image-wrapper"
           style={{
@@ -38,19 +42,18 @@ export default function MyArtistsContainer({
             backgroundImage:
               "linear-gradient(to right, rgba(7, 176, 242, 0.3), rgba(7, 176, 242, 0.3)), url('/dj.jpg')",
             backgroundBlendMode: "multiply",
-            // backgroundImage: "url(/dj.jpg)",
             backgroundPosition: "top",
-            // backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
           }}
         ></div>
         <div className="btn-wrapper">
-          {/* <button className="button-primary" onClick={loginToSpotify}>
-            Login to see Favorites
+          {/* <button className="button-primary">
+            Make Playlist with Favorites{" "}
           </button> */}
         </div>
         <FavoriteArtistContainer myFavoriteArtists={myFavoriteArtists} />
-        {/* {accessToken} */}
+
+        {/* <Tab menu={{ secondary: true, pointing: true }} panes={panes} /> */}
       </div>
     </div>
   );

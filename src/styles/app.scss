@@ -2,6 +2,10 @@
   margin: 0;
   padding: 0;
   box-sizing: 0;
+  // overflow: hidden;
+}
+body {
+  background: #f0f5f8;
 }
 
 @import "./login";
@@ -15,3 +19,4 @@
 @import "./modal";
 @import "./buttons";
 @import "./favorite";
+@import "./sliderWindow";

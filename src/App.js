@@ -3,8 +3,12 @@ import MainConatiner from "./components/MainContainer";
 import Menu from "./components/Menu";
 import Nav from "./components/Nav";
 import MyModal from "./components/MyModal";
+import SliderWindow from "./components/SliderWindow";
 import MyArtistContainer from "./components/MyArtistContainer";
 import Spotify from "./utils/spotify";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./styles/app.scss";
 
 function App() {
@@ -15,6 +19,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [playlistWasCreated, setPlaylistWasCreated] = useState(false);
 
   const getAccessToken = (e) => {
     // const results = Spotify.getAccessToken();
@@ -32,7 +37,7 @@ function App() {
     setAccessToken(results);
 
     Spotify.getMyDetails().then((results) => {
-      // console.log(results);
+      console.log(results);
       setMyDetails(results);
     });
     Spotify.getUsersTopArtists().then((favArtists) => {
@@ -64,6 +69,7 @@ function App() {
 
   const getSimilarArtists = (artistID) => {
     // e.preventDefault();
+    setSliderWindowOpen(true);
     setModalOpen(true);
     Spotify.getSimilarArtists(artistID).then((results) => {
       console.log(results);
@@ -92,7 +98,7 @@ function App() {
   };
 
   const [menuOpen, setMenuOpen] = useState(true);
-
+  const [sliderWindowOpen, setSliderWindowOpen] = useState(false);
   // Making playlist time
   const [searchPageShowing, setSearchPageShowing] = useState(false);
 
@@ -103,6 +109,17 @@ function App() {
   //     setMyDetails(results);
   //   });
   // };
+
+  const notify = () =>
+    toast.success("Playlist Created!", {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
 
   return (
     <div className="App">
@@ -117,10 +134,28 @@ function App() {
             getSimilarArtists={getSimilarArtists}
           />
 
-          <MyModal
+          {/* <MyModal
             modalOpen={modalOpen}
             setModalOpen={setModalOpen}
             getTopSongsSimilarArtists={getTopSongsSimilarArtists}
+          /> */}
+
+          <SliderWindow
+            sliderWindowOpen={sliderWindowOpen}
+            setSliderWindowOpen={setSliderWindowOpen}
+            getTopSongsSimilarArtists={getTopSongsSimilarArtists}
+            notify={notify}
+          />
+          <ToastContainer
+            position="bottom-right"
+            autoClose={5000}
+            hideProgressBar
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
           />
         </>
       ) : (
@@ -133,6 +168,7 @@ function App() {
       )}
 
       <Menu
+        setSliderWindowOpen={setSliderWindowOpen}
         menuOpen={menuOpen}
         getAccessToken={getAccessToken}
         setSearchPageShowing={setSearchPageShowing}

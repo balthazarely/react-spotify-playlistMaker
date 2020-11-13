@@ -1,5 +1,11 @@
 .btn-wrapper {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   margin: 20px;
+}
+.ui.segment {
+  padding: 0;
+}
+.ui.secondary.pointing.menu {
+  border-bottom: none;
 }
