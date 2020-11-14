@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Icon } from "semantic-ui-react";
+import { Button, Icon } from "semantic-ui-react";
 
 export default function Menu({
   menuOpen,
   setSliderWindowOpen,
   setSearchPageShowing,
+  myDetails,
 }) {
   const [btnActive, setBtnActive] = useState("favorite");
 
@@ -60,6 +61,20 @@ export default function Menu({
             }`}
           />
           <div className="btn-text">About</div>
+
+          <div className="profile-container">
+            {myDetails.display_name ? (
+              <>
+                <div className="my-profile-photo">
+                  <img src={myDetails.images[0].url} />
+                </div>
+                <div className="my-profile-name">{myDetails.display_name}</div>
+                {/* <button className="button-small" onChange={getAccessToken}>
+                  Change User
+                </button> */}
+              </>
+            ) : null}
+          </div>
         </div>
       </div>
     </div>

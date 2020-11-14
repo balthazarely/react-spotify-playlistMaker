@@ -7,8 +7,10 @@ export default function MyArtistsContainer({
   myFavoriteArtists,
   myFavoriteTracks,
   getSimilarArtists,
+  myDetails,
 }) {
   const [artistsShowing, setArtistShowing] = useState(true);
+  console.log(myDetails);
 
   return (
     <div className={`main-container ${menuOpen ? "" : "no-margin"}`}>
@@ -19,8 +21,8 @@ export default function MyArtistsContainer({
           style={{
             // height: "300px",
             backgroundImage:
-              "linear-gradient(to right, rgba(7, 176, 242, 0.3), rgba(7, 176, 242, 0.3)), url('/band4.jpg')",
-            backgroundBlendMode: "multiply",
+              "linear-gradient(to right, rgba(7, 176, 242, 0.3), rgba(7, 176, 242, 0.3)), url('/dj2.jpg')",
+            backgroundBlendMode: "darken",
             backgroundPosition: "top",
             backgroundSize: "cover",
           }}

@@ -2,26 +2,6 @@ const clientId = "75512e8899a34ca7a0dce9fb97ef9eab";
 const redirectUri = "http://localhost:3000/";
 let accessToken;
 
-function shuffle(array) {
-  var currentIndex = array.length,
-    temporaryValue,
-    randomIndex;
-
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-
-  return array;
-}
-
 const Spotify = {
   getAccessToken() {
     if (accessToken) {
@@ -38,8 +18,15 @@ const Spotify = {
       window.history.pushState("Access Token", null, "/");
       console.log(accessToken);
       return accessToken;
+
+      // "user-read-currently-playing",
+      // "user-read-recently-played",
+      // "user-read-playback-state",
+      // "user-top-read",
+      // "user-modify-playback-state",
+      // "playlist-modify-public",
     } else {
-      const accessUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&show_dialog=true&redirect_uri=${redirectUri}`;
+      const accessUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&user-top-read&show_dialog=true&redirect_uri=${redirectUri}`;
       console.log(accessToken);
       window.location = accessUrl;
     }
@@ -131,7 +118,9 @@ const Spotify = {
       Authorization: `Bearer ${accessToken}`,
     };
     return fetch(
+      // ` https://api.spotify.com/v1/me/top/artists`,
       ` https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=30&offset=0`,
+
       {
         headers: headers,
       }
@@ -149,7 +138,6 @@ const Spotify = {
       )
       .then((jsonResponse) => {
         return jsonResponse.items;
-        console.log(jsonResponse);
       });
   },
   getUsersTopTracks() {
@@ -158,7 +146,9 @@ const Spotify = {
       Authorization: `Bearer ${accessToken}`,
     };
     return fetch(
+      // ` https://api.spotify.com/v1/me/top/tracks`,
       ` https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=30&offset=0`,
+
       {
         headers: headers,
       }

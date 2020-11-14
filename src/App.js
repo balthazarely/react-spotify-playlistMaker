@@ -7,6 +7,7 @@ import SliderWindow from "./components/SliderWindow";
 import MyArtistContainer from "./components/MyArtistContainer";
 import Spotify from "./utils/spotify";
 
+// Martin127792
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./styles/app.scss";
@@ -25,12 +26,30 @@ function App() {
   const getAccessToken = (e) => {
     // const results = Spotify.getAccessToken();
     // setAccessToken(results);
-    e.preventDefault();
-    Spotify.getAccessToken().then((token) => {
-      console.log(token);
-      setAccessToken(token);
-    });
+    console.log("its going");
+    const results = Spotify.getAccessToken();
+    setAccessToken(results);
   };
+
+  function shuffle(array) {
+    var currentIndex = array.length,
+      temporaryValue,
+      randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+  }
 
   useEffect(() => {
     // console.log("calling useffect");
@@ -77,7 +96,6 @@ function App() {
   };
 
   const getTopSongsSimilarArtists = async (playListName) => {
-    // e.preventDefault();
     let artistSongArray = [];
 
     await similarArtists.map((artist) => {
@@ -91,7 +109,7 @@ function App() {
       let mapped = [].concat(...flattened.map(Object.values));
       console.log(mapped, "this is the final array");
       let name = playListName;
-      let songURI = mapped;
+      let songURI = shuffle(mapped);
       Spotify.savePlaylist(name, songURI);
     }, 3000);
   };
@@ -102,7 +120,7 @@ function App() {
   const [searchPageShowing, setSearchPageShowing] = useState(false);
 
   const notify = () =>
-    toast.success("Playlist Created!", {
+    toast.info("Playlist Created!", {
       position: "bottom-right",
       autoClose: 2000,
       hideProgressBar: true,
@@ -154,7 +172,6 @@ function App() {
           <MyArtistContainer
             menuOpen={menuOpen}
             accessToken={accessToken}
-            myDetails={myDetails}
             myFavoriteArtists={myFavoriteArtists}
             myFavoriteTracks={myFavoriteTracks}
             getSimilarArtists={getSimilarArtists}
@@ -184,6 +201,7 @@ function App() {
         menuOpen={menuOpen}
         getAccessToken={getAccessToken}
         setSearchPageShowing={setSearchPageShowing}
+        myDetails={myDetails}
       />
     </div>
   );
