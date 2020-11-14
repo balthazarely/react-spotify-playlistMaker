@@ -26,7 +26,7 @@ const Spotify = {
       // "user-modify-playback-state",
       // "playlist-modify-public",
     } else {
-      const accessUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&user-top-read&show_dialog=true&redirect_uri=${redirectUri}`;
+      const accessUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=user-read-recently-played user-top-read playlist-modify-public&show_dialog=true&redirect_uri=${redirectUri}`;
       console.log(accessToken);
       window.location = accessUrl;
     }
@@ -92,17 +92,15 @@ const Spotify = {
         headers: headers,
       }
     )
-      .then(
-        (response) => {
-          if (response.ok) {
-            return response.json();
-          }
-          throw new Error("Request failed!");
-        },
-        (networkError) => {
-          console.log(networkError.message);
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
         }
-      )
+        //   throw new Error("Request failed!");
+        // },
+        // (networkError) => {
+        //   console.log(networkError.message);
+      })
       .then((jsonResponse) => {
         // console.log(jsonResponse);
         let filteredResponse = jsonResponse.tracks.map((track) => ({
@@ -125,17 +123,15 @@ const Spotify = {
         headers: headers,
       }
     )
-      .then(
-        (response) => {
-          if (response.ok) {
-            return response.json();
-          }
-          throw new Error("Request failed!");
-        },
-        (networkError) => {
-          console.log(networkError.message);
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
         }
-      )
+        //     throw new Error("Request failed!");
+        //   },
+        //   (networkError) => {
+        //     console.log(networkError.message);
+      })
       .then((jsonResponse) => {
         return jsonResponse.items;
       });
@@ -153,17 +149,15 @@ const Spotify = {
         headers: headers,
       }
     )
-      .then(
-        (response) => {
-          if (response.ok) {
-            return response.json();
-          }
-          throw new Error("Request failed!");
-        },
-        (networkError) => {
-          console.log(networkError.message);
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
         }
-      )
+        //   throw new Error("Request failed!");
+        // },
+        // (networkError) => {
+        //   console.log(networkError.message);
+      })
       .then((jsonResponse) => {
         console.log(jsonResponse, "TOP SONGS");
         return jsonResponse.items;

@@ -62,19 +62,17 @@ export default function Menu({
           />
           <div className="btn-text">About</div>
 
-          <div className="profile-container">
+          {/* <div className="profile-container">
             {myDetails.display_name ? (
               <>
                 <div className="my-profile-photo">
                   <img src={myDetails.images[0].url} />
                 </div>
                 <div className="my-profile-name">{myDetails.display_name}</div>
-                {/* <button className="button-small" onChange={getAccessToken}>
-                  Change User
-                </button> */}
+               
               </>
             ) : null}
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
