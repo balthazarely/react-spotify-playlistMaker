@@ -15,6 +15,7 @@ function App() {
   const [accessToken, setAccessToken] = useState(null);
   const [myDetails, setMyDetails] = useState({});
   const [myFavoriteArtists, setMyFavoriteArtists] = useState([]);
+  const [myFavoriteTracks, setMyFavoriteTracks] = useState([]);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -41,8 +42,10 @@ function App() {
       setMyDetails(results);
     });
     Spotify.getUsersTopArtists().then((favArtists) => {
-      // console.log(favArtists);
       setMyFavoriteArtists(favArtists);
+    });
+    Spotify.getUsersTopTracks().then((favTracks) => {
+      setMyFavoriteTracks(favTracks);
     });
   }, []);
 
@@ -58,10 +61,6 @@ function App() {
       setSearchResults(results.artists.items);
       console.log(results.artists.items);
     });
-    // Spotify.getMyDetails().then((results) => {
-    //   console.log(results);
-    //   setMyDetails(results);
-    // });
   };
 
   const [artist, setArtist] = useState([]);
@@ -101,14 +100,6 @@ function App() {
   const [sliderWindowOpen, setSliderWindowOpen] = useState(false);
   // Making playlist time
   const [searchPageShowing, setSearchPageShowing] = useState(false);
-
-  // const loginToSpotfiy = () => {
-  //   console.log("trying to get details");
-  //   Spotify.getMyDetails().then((results) => {
-  //     console.log(results);
-  //     setMyDetails(results);
-  //   });
-  // };
 
   const notify = () =>
     toast.success("Playlist Created!", {
@@ -159,12 +150,33 @@ function App() {
           />
         </>
       ) : (
-        <MyArtistContainer
-          menuOpen={menuOpen}
-          accessToken={accessToken}
-          myDetails={myDetails}
-          myFavoriteArtists={myFavoriteArtists}
-        />
+        <>
+          <MyArtistContainer
+            menuOpen={menuOpen}
+            accessToken={accessToken}
+            myDetails={myDetails}
+            myFavoriteArtists={myFavoriteArtists}
+            myFavoriteTracks={myFavoriteTracks}
+            getSimilarArtists={getSimilarArtists}
+          />
+          <SliderWindow
+            sliderWindowOpen={sliderWindowOpen}
+            setSliderWindowOpen={setSliderWindowOpen}
+            getTopSongsSimilarArtists={getTopSongsSimilarArtists}
+            notify={notify}
+          />
+          <ToastContainer
+            position="bottom-right"
+            autoClose={5000}
+            hideProgressBar
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
+        </>
       )}
 
       <Menu

@@ -84,3 +84,10 @@
     display: none;
   }
 }
+
+.artist-small-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  margin-left: 5px;
+}

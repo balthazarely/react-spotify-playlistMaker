@@ -6,7 +6,8 @@
   justify-content: space-between;
   background: #f0f5f8;
   transition: all 0.35s;
-  height: 100vh;
+  height: 102vh;
+  animation: 0.3s ease-out 0s 1 slideInBottom;
 
   .main-header {
     position: absolute;
@@ -27,6 +28,7 @@
   width: 90%;
   box-shadow: 2px 2px 50px rgb(206, 206, 206);
   // height: 100%;
+  position: relative;
   max-width: 1200px;
 }
 
@@ -44,4 +46,12 @@
   object-fit: cover;
   min-width: 100%;
   min-height: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .main-container {
+    .main-header {
+      font-size: 24px;
+    }
+  }
 }

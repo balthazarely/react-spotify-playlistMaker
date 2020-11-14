@@ -1,46 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import FavoriteArtistContainer from "./FavoriteArtistContainer";
-import { Tab, Dimmer, Loader, Image } from "semantic-ui-react";
+import FavoriteTracksContainer from "./FavoriteTracksContainer";
 
 export default function MyArtistsContainer({
   menuOpen,
-  accessToken,
-  myDetails,
   myFavoriteArtists,
+  myFavoriteTracks,
+  getSimilarArtists,
 }) {
-  const [isLoggedIn, setIsLoggedIn] = useState("");
-
-  const panes = [
-    {
-      menuItem: "Favorite Artists",
-      render: () => (
-        <Tab.Pane attached={false}>
-          <FavoriteArtistContainer myFavoriteArtists={myFavoriteArtists} />
-        </Tab.Pane>
-      ),
-    },
-    {
-      menuItem: "Favorites Songs",
-      render: () => <Tab.Pane attached={false}> </Tab.Pane>,
-    },
-  ];
+  const [artistsShowing, setArtistShowing] = useState(true);
 
   return (
     <div className={`main-container ${menuOpen ? "" : "no-margin"}`}>
       <div className="container">
-        <div
-          className="main-header"
-          //  style={{ top: "330px" }}
-        >
-          Most Played Artists
-        </div>
-
+        <div className="main-header">Recent Favorites</div>
         <div
           className="main-image-wrapper"
           style={{
             // height: "300px",
             backgroundImage:
-              "linear-gradient(to right, rgba(7, 176, 242, 0.3), rgba(7, 176, 242, 0.3)), url('/dj.jpg')",
+              "linear-gradient(to right, rgba(7, 176, 242, 0.3), rgba(7, 176, 242, 0.3)), url('/band4.jpg')",
             backgroundBlendMode: "multiply",
             backgroundPosition: "top",
             backgroundSize: "cover",
@@ -51,7 +30,29 @@ export default function MyArtistsContainer({
             Make Playlist with Favorites{" "}
           </button> */}
         </div>
-        <FavoriteArtistContainer myFavoriteArtists={myFavoriteArtists} />
+        <div className="selector-words-container flex-horizontal">
+          <div
+            className={`selector-word ${artistsShowing ? "active" : ""}`}
+            onClick={() => setArtistShowing(true)}
+          >
+            {" "}
+            Artists
+          </div>
+          <div
+            className={`selector-word ${artistsShowing ? "" : "active"}`}
+            onClick={() => setArtistShowing(false)}
+          >
+            Songs
+          </div>
+        </div>
+        {artistsShowing ? (
+          <FavoriteArtistContainer
+            myFavoriteArtists={myFavoriteArtists}
+            getSimilarArtists={getSimilarArtists}
+          />
+        ) : (
+          <FavoriteTracksContainer myFavoriteTracks={myFavoriteTracks} />
+        )}
 
         {/* <Tab menu={{ secondary: true, pointing: true }} panes={panes} /> */}
       </div>

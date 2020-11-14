@@ -8,6 +8,12 @@ body {
   background: #f0f5f8;
 }
 
+.flex-horizontal {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 @import "./login";
 @import "./mainContainer";
 @import "./myArtistsContainer";
@@ -15,7 +21,6 @@ body {
 @import "./nav";
 @import "./result";
 @import "./input";
-@import "./accordian";
 @import "./modal";
 @import "./buttons";
 @import "./favorite";

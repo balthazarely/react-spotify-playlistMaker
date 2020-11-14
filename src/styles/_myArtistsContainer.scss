@@ -9,3 +9,16 @@
 .ui.secondary.pointing.menu {
   border-bottom: none;
 }
+
+.selector-words-container {
+  font-size: 20px;
+  font-weight: 400;
+  margin: 20px 0;
+  .selector-word {
+    margin: 0px 20px;
+    cursor: pointer;
+  }
+  .active {
+    font-weight: 800;
+  }
+}

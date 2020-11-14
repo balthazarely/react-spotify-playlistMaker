@@ -17,7 +17,6 @@
     height: 300px;
     display: flex;
     justify-content: space-between;
-    // align-items: center;
     flex-direction: column;
   }
   .icon-btn-wrapper {
@@ -39,8 +38,11 @@
         color: rgb(140, 140, 140);
       }
       .icon-btn {
-        transform: scale(1.2);
       }
+    }
+    .btn-active-icon {
+      transform: scale(1.2);
+      color: #07c7f2;
     }
   }
 

@@ -21,7 +21,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 10px 35px;
+    padding: 10px 45px;
   }
   .btn {
     font-weight: 800;
@@ -33,17 +33,20 @@
     border: none;
     box-shadow: 0px 2px 12px 1px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-    &:hover {
-      background: rgb(52, 154, 218);
-    }
   }
   .success {
     background: rgb(66, 173, 240);
     color: white;
+    &:hover {
+      background: rgb(52, 154, 218);
+    }
   }
   .cancle {
     background: white;
     color: darkgray;
+    &:hover {
+      background: rgb(240, 240, 240);
+    }
   }
 }
 

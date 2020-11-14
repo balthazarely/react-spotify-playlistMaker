@@ -31,13 +31,26 @@
       rgba(0, 0, 0, 0)
     );
   }
+  .artist-check-icon {
+    position: absolute;
+    transition: all 0.2s;
+    right: 0;
+    top: 0;
+    margin: 5px;
+    opacity: 1;
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
   .artist-play-icon {
     position: absolute;
     transition: all 0.2s;
     right: 0;
     bottom: 0;
-    margin: 5px;
+    margin-bottom: 5px;
+    margin-right: 2px;
     opacity: 1;
+    color: #07c7f2;
     &:hover {
       transform: scale(1.2);
     }

@@ -1,26 +1,31 @@
-import React from "react";
-import { Button, Icon } from "semantic-ui-react";
+import React, { useState } from "react";
+import { Icon } from "semantic-ui-react";
 
 export default function Menu({
   menuOpen,
-  getAccessToken,
   setSliderWindowOpen,
   setSearchPageShowing,
 }) {
+  const [btnActive, setBtnActive] = useState("favorite");
+
   return (
     <div className={`sidemenu ${menuOpen ? "active-menu" : ""}`}>
       <div className="button-wrapper">
-        {/* <button className="button-primary" onClick={(e) => getAccessToken(e)}>
-          Login
-        </button> */}
         <div
           className="icon-btn-wrapper"
           onClick={() => {
             setSearchPageShowing(true);
             setSliderWindowOpen(false);
+            setBtnActive("search");
           }}
         >
-          <Icon name="search" size="big" className="icon-btn" />
+          <Icon
+            name="search"
+            size="big"
+            className={`icon-btn ${
+              btnActive === "search" ? "btn-active-icon" : ""
+            }`}
+          />
           <div className="btn-text">Search Artists</div>
         </div>
         <div
@@ -28,16 +33,32 @@ export default function Menu({
           onClick={() => {
             setSearchPageShowing(false);
             setSliderWindowOpen(false);
+            setBtnActive("favorite");
           }}
         >
-          <Icon name="favorite" size="big" className="icon-btn" />
+          <Icon
+            name="favorite"
+            size="big"
+            className={`icon-btn ${
+              btnActive === "favorite" ? "btn-active-icon" : ""
+            }`}
+          />
           <div className="btn-text">Favorite Artists</div>
         </div>
         <div
           className="icon-btn-wrapper"
-          onClick={() => setSearchPageShowing(false)}
+          onClick={() => {
+            setSearchPageShowing(false);
+            setBtnActive("about");
+          }}
         >
-          <Icon name="question" size="big" className="icon-btn" />
+          <Icon
+            name="question"
+            size="big"
+            className={`icon-btn ${
+              btnActive === "about" ? "btn-active-icon" : ""
+            }`}
+          />
           <div className="btn-text">About</div>
         </div>
       </div>
