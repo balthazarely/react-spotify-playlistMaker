@@ -7,6 +7,7 @@ export default function Menu({
   setSliderWindowBottomOpen,
   setSearchPageShowing,
   myDetails,
+  setMenuOpen,
 }) {
   const [btnActive, setBtnActive] = useState("favorite");
 
@@ -19,6 +20,7 @@ export default function Menu({
             setSearchPageShowing(true);
             setSliderWindowOpen(false);
             setBtnActive("search");
+            setMenuOpen(window.innerWidth < 768 ? false : true);
           }}
         >
           <Icon
@@ -37,6 +39,7 @@ export default function Menu({
             setSliderWindowOpen(false);
             setSliderWindowBottomOpen(false);
             setBtnActive("favorite");
+            setMenuOpen(window.innerWidth < 768 ? false : true);
           }}
         >
           <Icon
@@ -53,6 +56,7 @@ export default function Menu({
           onClick={() => {
             setSearchPageShowing(false);
             setBtnActive("about");
+            setMenuOpen(false);
           }}
         >
           <Icon
@@ -63,19 +67,18 @@ export default function Menu({
             }`}
           />
           <div className="btn-text">About</div>
-
-          {/* <div className="profile-container">
+          <div className="profile-container">
             {myDetails.display_name ? (
               <>
                 <div className="my-profile-photo">
                   <img src={myDetails.images[0].url} />
                 </div>
-                <div className="my-profile-name">{myDetails.display_name}</div>
-               
+                <div className="my-profile-name">
+                  Logged in as: {myDetails.display_name}
+                </div>
               </>
             ) : null}
-          </div> */}
-          {myDetails.display_name ? <div>{myDetails.display_name}</div> : null}
+          </div>
         </div>
       </div>
     </div>

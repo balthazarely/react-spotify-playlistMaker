@@ -24,7 +24,9 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   // Apperance
-  const [menuOpen, setMenuOpen] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(
+    window.innerWidth > 768 ? true : false
+  );
   const [sliderWindowOpen, setSliderWindowOpen] = useState(false);
   const [sliderWindowBottomOpen, setSliderWindowBottomOpen] = useState(false);
   const [showPlaylistBtnSongs, setShowPlaylistBtnSongs] = useState(true);
@@ -71,11 +73,6 @@ function App() {
 
   // Playlist Making hooks
   const [similarArtists, setSimilarArtists] = useState([]);
-  // FROM THE SEED
-  const [
-    similarArtistsTrackSeedReco,
-    setSimilarArtistsTrackSeedReco,
-  ] = useState([]);
 
   const getSimilarArtists = (artistID) => {
     setSliderWindowOpen(true);
@@ -206,6 +203,7 @@ function App() {
             getSimilarArtists={getSimilarArtists}
             showPlaylistBtnSongs={showPlaylistBtnSongs}
             usesTools={usesTools}
+            setUsesTools={setUsesTools}
             updateUsesTools={updateUsesTools}
             makePlaylistFromSong={makePlaylistFromSong}
             setSliderWindowBottomOpen={setSliderWindowBottomOpen}
@@ -243,6 +241,7 @@ function App() {
         setSearchPageShowing={setSearchPageShowing}
         setSliderWindowBottomOpen={setSliderWindowBottomOpen}
         myDetails={myDetails}
+        setMenuOpen={setMenuOpen}
       />
     </div>
   );

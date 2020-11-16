@@ -26,7 +26,7 @@ export default function FavoriteTracksCard({
       <div className="text-wrapper">
         <div className="header">{song.name}</div>
         <div className="artist-small-wrapper">
-          {song.artists.slice(0, 6).map((song, index) => {
+          {song.artists.slice(0, 3).map((song, index) => {
             return <span key={index}>{(index ? ", " : "") + song.name}</span>;
           })}
         </div>

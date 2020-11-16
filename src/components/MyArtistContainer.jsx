@@ -7,7 +7,7 @@ export default function MyArtistsContainer({
   myFavoriteArtists,
   myFavoriteTracks,
   getSimilarArtists,
-  showPlaylistBtnSongs,
+  setUsesTools,
   getSimilarSongsRecomendations,
   setSliderWindowBottomOpen,
   setSliderWindowOpen,
@@ -56,6 +56,7 @@ export default function MyArtistsContainer({
                 setArtistShowing(true);
                 setSliderWindowBottomOpen(false);
                 setSliderWindowOpen(false);
+                setUsesTools([]);
               }}
             >
               Artists
@@ -66,6 +67,7 @@ export default function MyArtistsContainer({
                 setArtistShowing(false);
                 setSliderWindowBottomOpen(false);
                 setSliderWindowOpen(false);
+                setUsesTools([]);
               }}
             >
               Songs

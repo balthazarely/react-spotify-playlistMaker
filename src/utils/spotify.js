@@ -1,5 +1,7 @@
 const clientId = "75512e8899a34ca7a0dce9fb97ef9eab";
 const redirectUri = "http://localhost:3000/";
+// const redirectUri = "https://hot-jam.surge.sh/";
+
 let accessToken;
 
 const Spotify = {
@@ -135,7 +137,6 @@ const Spotify = {
       Authorization: `Bearer ${accessToken}`,
     };
     return fetch(
-      // ` https://api.spotify.com/v1/me/top/tracks`,
       ` https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=30&offset=0`,
 
       {
