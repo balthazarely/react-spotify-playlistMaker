@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Input, Loader } from "semantic-ui-react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+
 export default function SliderWindow({
   getTopSongsSimilarArtists,
   sliderWindowOpen,
@@ -9,6 +8,7 @@ export default function SliderWindow({
   notify,
 }) {
   const [playlistName, setPlaylistName] = useState("");
+  const [inputValue, setInputValue] = useState("");
 
   return (
     <div
@@ -20,7 +20,11 @@ export default function SliderWindow({
           fluid
           placeholder="Playlist name"
           size="medium"
-          onChange={(e) => setPlaylistName(e.target.value)}
+          value={inputValue}
+          onChange={(e) => {
+            setPlaylistName(e.target.value);
+            setInputValue(e.target.value);
+          }}
         />
         <div className="btn-container">
           <button
@@ -28,16 +32,19 @@ export default function SliderWindow({
             onClick={() => {
               getTopSongsSimilarArtists(playlistName);
               setSliderWindowOpen(false);
-              notify();
+              setInputValue("");
             }}
           >
             Make Playlist
           </button>
           <button
             className={"btn cancle"}
-            onClick={() => setSliderWindowOpen(false)}
+            onClick={() => {
+              setSliderWindowOpen(false);
+              setInputValue("");
+            }}
           >
-            cancle
+            cancel
           </button>
         </div>
       </div>
@@ -45,26 +52,3 @@ export default function SliderWindow({
     </div>
   );
 }
-
-// export default function SearchInput({ searchHandler, searchArtists }) {
-//   const handleEnterPress = (e) => {
-//     if (e.key === "Enter") {
-//       searchArtists(e);
-//     }
-//   };
-
-//   return (
-//     <div className="input-wrapper">
-//       <Input
-//         className="input-search"
-//         placeholder="Search Artist..."
-//         size="medium"
-//         onChange={(e) => searchHandler(e)}
-//         fluid
-//         onKeyDown={(e) => handleEnterPress(e)}
-//       />
-//       {/* Might need button for moible */}
-//       {/* <Button onClick={(e) => searchArtists(e)}>Search</Button> */}
-//     </div>
-//   );
-// }

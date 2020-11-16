@@ -16,13 +16,13 @@ nav {
     background: white;
     border: none;
     cursor: pointer;
-    border: 2px solid rgb(65, 65, 65);
+    border: 2px solid rgb(30, 30, 30);
     padding: 0.5rem 1.5rem;
     margin-right: 1rem;
     transition: all 0.3 ease;
     outline: none;
     &:hover {
-      background: rgb(65, 65, 65);
+      background: #07c7f2;
       color: white;
     }
   }

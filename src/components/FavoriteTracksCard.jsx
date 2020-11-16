@@ -1,11 +1,23 @@
-import React from "react";
-import { Label } from "semantic-ui-react";
+import React, { useState } from "react";
+import { Label, Checkbox } from "semantic-ui-react";
 
-export default function FavoriteTracksCard({ song }) {
-  console.log(song);
+export default function FavoriteTracksCard({
+  song,
+  index,
+  getSimilarSongsRecomendations,
+  usesTools,
+  updateUsesTools,
+}) {
+  const checkHandler = (e) => {
+    const tools = usesTools; //Array in parent component
+    const value = e.target.value; //Checkbox value
+    updateUsesTools(value);
+  };
   return (
     <div className={"result-container"}>
-      <index className="index-wrapper">{/* <div>{index}</div> */}</index>
+      <index className="index-wrapper">
+        <div>{index + 1}</div>
+      </index>
       <img
         className="image-wrapper"
         src={song.album.images.length > 0 ? song.album.images[1].url : null}
@@ -14,25 +26,31 @@ export default function FavoriteTracksCard({ song }) {
       <div className="text-wrapper">
         <div className="header">{song.name}</div>
         <div className="artist-small-wrapper">
-          {song.artists.map((song, index) => {
+          {song.artists.slice(0, 6).map((song, index) => {
             return <span key={index}>{(index ? ", " : "") + song.name}</span>;
-
-            // return <div>{song.name},</div>;
           })}
         </div>
       </div>
-      {/* <div className="btn-wrapper">
-      <button onClick={() => getSimilarArtists(artist.id)}>
-        Make Playlist
-      </button>
-    </div> */}
-    </div>
+      {/* <div className="btn-wrapper"> */}
+      <div class="checkbox-wrapper">
+        <input
+          type="checkbox"
+          id="test1"
+          className="checkmark"
+          label="Add"
+          value={song.id}
+          onChange={(e) => checkHandler(e)}
+        />
 
-    // <div>
-    //   {song.name}
-    //   {song.artists.map((artist) => {
-    //     return <div>{artist.name}</div>;
-    //   })}
-    // </div>
+        {/* <button
+          onClick={() =>
+            getSimilarSongsRecomendations(song.artists[0].id, song.id)
+          }
+        >
+          Make Playlist
+        </button> */}
+      </div>{" "}
+      {/* </div> */}
+    </div>
   );
 }

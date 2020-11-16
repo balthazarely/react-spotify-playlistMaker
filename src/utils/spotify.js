@@ -18,13 +18,6 @@ const Spotify = {
       window.history.pushState("Access Token", null, "/");
       console.log(accessToken);
       return accessToken;
-
-      // "user-read-currently-playing",
-      // "user-read-recently-played",
-      // "user-read-playback-state",
-      // "user-top-read",
-      // "user-modify-playback-state",
-      // "playlist-modify-public",
     } else {
       const accessUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=user-read-recently-played user-top-read playlist-modify-public&show_dialog=true&redirect_uri=${redirectUri}`;
       console.log(accessToken);
@@ -170,6 +163,27 @@ const Spotify = {
       Authorization: `Bearer ${accessToken}`,
     };
     return fetch("https://api.spotify.com/v1/me", { headers: headers }).then(
+      (response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error("Request failed!");
+      },
+      (networkError) => {
+        console.log(networkError.message);
+      }
+    );
+  },
+
+  makePlaylistFromArtistAndSong(songId) {
+    const accessToken = Spotify.getAccessToken();
+    const headers = {
+      Authorization: `Bearer ${accessToken}`,
+    };
+    return fetch(
+      `https://api.spotify.com/v1/recommendations?seed_tracks=${songId}`,
+      { headers: headers }
+    ).then(
       (response) => {
         if (response.ok) {
           return response.json();

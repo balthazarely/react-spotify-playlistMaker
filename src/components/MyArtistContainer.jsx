@@ -7,19 +7,38 @@ export default function MyArtistsContainer({
   myFavoriteArtists,
   myFavoriteTracks,
   getSimilarArtists,
-  myDetails,
+  showPlaylistBtnSongs,
+  getSimilarSongsRecomendations,
+  setSliderWindowBottomOpen,
+  setSliderWindowOpen,
+  //
+  usesTools,
+  updateUsesTools,
 }) {
   const [artistsShowing, setArtistShowing] = useState(true);
-  console.log(myDetails);
+  // console.log(myDetails);
 
   return (
     <div className={`main-container ${menuOpen ? "" : "no-margin"}`}>
+      <div
+        className={`favorite-add-btn-sticky-btm ${
+          usesTools.length > 0 ? "" : "hidden"
+        }`}
+      >
+        <div>
+          <button
+            className="button-primary"
+            onClick={() => setSliderWindowBottomOpen(true)}
+          >
+            MAKE PLAYLIST
+          </button>
+        </div>
+      </div>
       <div className="container">
         <div className="main-header">Recent Favorites</div>
         <div
           className="main-image-wrapper"
           style={{
-            // height: "300px",
             backgroundImage:
               "linear-gradient(to right, rgba(7, 176, 242, 0.3), rgba(7, 176, 242, 0.3)), url('/dj2.jpg')",
             backgroundBlendMode: "darken",
@@ -27,25 +46,46 @@ export default function MyArtistsContainer({
             backgroundSize: "cover",
           }}
         ></div>
-        <div className="btn-wrapper">
-          {/* <button className="button-primary">
-            Make Playlist with Favorites{" "}
-          </button> */}
-        </div>
-        <div className="selector-words-container flex-horizontal">
-          <div
-            className={`selector-word ${artistsShowing ? "active" : ""}`}
-            onClick={() => setArtistShowing(true)}
-          >
-            {" "}
-            Artists
+        <div className="btn-wrapper"></div>
+
+        <div className="selector-words-container flex-horizontal-spaced">
+          <div className="selector-word-wrapper">
+            <div
+              className={`selector-word ${artistsShowing ? "active" : ""}`}
+              onClick={() => {
+                setArtistShowing(true);
+                setSliderWindowBottomOpen(false);
+                setSliderWindowOpen(false);
+              }}
+            >
+              Artists
+            </div>
+            <div
+              className={`selector-word ${artistsShowing ? "" : "active"}`}
+              onClick={() => {
+                setArtistShowing(false);
+                setSliderWindowBottomOpen(false);
+                setSliderWindowOpen(false);
+              }}
+            >
+              Songs
+            </div>
           </div>
-          <div
-            className={`selector-word ${artistsShowing ? "" : "active"}`}
-            onClick={() => setArtistShowing(false)}
-          >
-            Songs
-          </div>
+
+          {/* <>
+            <div
+              className={`playlist-btn-wrapper ${
+                usesTools.length > 0 ? "" : "hidden"
+              }`}
+            >
+              <button
+                className="button-primary"
+                onClick={() => setSliderWindowBottomOpen(true)}
+              >
+                MAKE PLAYLIST
+              </button>
+            </div>
+          </> */}
         </div>
         {artistsShowing ? (
           <FavoriteArtistContainer
@@ -53,10 +93,15 @@ export default function MyArtistsContainer({
             getSimilarArtists={getSimilarArtists}
           />
         ) : (
-          <FavoriteTracksContainer myFavoriteTracks={myFavoriteTracks} />
-        )}
+          <FavoriteTracksContainer
+            myFavoriteTracks={myFavoriteTracks}
+            getSimilarSongsRecomendations={getSimilarSongsRecomendations}
+            //
 
-        {/* <Tab menu={{ secondary: true, pointing: true }} panes={panes} /> */}
+            usesTools={usesTools}
+            updateUsesTools={updateUsesTools}
+          />
+        )}
       </div>
     </div>
   );

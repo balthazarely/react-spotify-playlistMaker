@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import MainConatiner from "./components/MainContainer";
 import Menu from "./components/Menu";
 import Nav from "./components/Nav";
-import MyModal from "./components/MyModal";
 import SliderWindow from "./components/SliderWindow";
+import SliderWindowBottom from "./components/SliderWindowBottom";
 import MyArtistContainer from "./components/MyArtistContainer";
 import Spotify from "./utils/spotify";
+import shuffle from "./utils/helpers";
 
 // Martin127792
 import { ToastContainer, toast } from "react-toastify";
@@ -15,44 +16,30 @@ import "./styles/app.scss";
 function App() {
   const [accessToken, setAccessToken] = useState(null);
   const [myDetails, setMyDetails] = useState({});
+
+  // User infomation
   const [myFavoriteArtists, setMyFavoriteArtists] = useState([]);
   const [myFavoriteTracks, setMyFavoriteTracks] = useState([]);
-
+  // Search hanlers
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [playlistWasCreated, setPlaylistWasCreated] = useState(false);
+  // Apperance
+  const [menuOpen, setMenuOpen] = useState(true);
+  const [sliderWindowOpen, setSliderWindowOpen] = useState(false);
+  const [sliderWindowBottomOpen, setSliderWindowBottomOpen] = useState(false);
+  const [showPlaylistBtnSongs, setShowPlaylistBtnSongs] = useState(true);
+
+  // THis is my shit version of a tab that i made.
+  const [searchPageShowing, setSearchPageShowing] = useState(false);
 
   const getAccessToken = (e) => {
-    // const results = Spotify.getAccessToken();
-    // setAccessToken(results);
     console.log("its going");
     const results = Spotify.getAccessToken();
     setAccessToken(results);
   };
 
-  function shuffle(array) {
-    var currentIndex = array.length,
-      temporaryValue,
-      randomIndex;
-
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-
-      // And swap it with the current element.
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
-    }
-
-    return array;
-  }
-
+  // On Mount, initialize app
   useEffect(() => {
-    // console.log("calling useffect");
     const results = Spotify.getAccessToken();
     setAccessToken(results);
 
@@ -82,13 +69,16 @@ function App() {
     });
   };
 
-  const [artist, setArtist] = useState([]);
+  // Playlist Making hooks
   const [similarArtists, setSimilarArtists] = useState([]);
+  // FROM THE SEED
+  const [
+    similarArtistsTrackSeedReco,
+    setSimilarArtistsTrackSeedReco,
+  ] = useState([]);
 
   const getSimilarArtists = (artistID) => {
-    // e.preventDefault();
     setSliderWindowOpen(true);
-    setModalOpen(true);
     Spotify.getSimilarArtists(artistID).then((results) => {
       console.log(results);
       setSimilarArtists(results.artists);
@@ -96,31 +86,76 @@ function App() {
   };
 
   const getTopSongsSimilarArtists = async (playListName) => {
-    let artistSongArray = [];
+    if (similarArtists.length === 0) {
+      console.log("sorry, noe enoguth related artists");
+      notifyError();
+      return;
+    } else {
+      let artistSongArray = [];
+      await similarArtists.map((artist) => {
+        Spotify.getTopSongs(artist.id).then((results) => {
+          artistSongArray.push(results);
+        });
+      });
+      setTimeout(() => {
+        let flattened = artistSongArray.flat();
+        let mapped = [].concat(...flattened.map(Object.values));
+        // console.log(mapped, "this is the final array");
+        let name = playListName;
+        let songURI = shuffle(mapped);
+        Spotify.savePlaylist(name, songURI);
+      }, 2000);
+      notify();
+    }
+  };
 
-    await similarArtists.map((artist) => {
-      Spotify.getTopSongs(artist.id).then((results) => {
-        artistSongArray.push(results);
-        console.log(artistSongArray);
+  const [usesTools, setUsesTools] = useState([]);
+  const updateUsesTools = (item) => {
+    if (usesTools.includes(item)) {
+      setUsesTools(usesTools.filter((tool) => tool != item));
+    } else {
+      setUsesTools([...usesTools, item]); // or push
+    }
+  };
+
+  // Need to add the condition to NOT make a platlist like above if there isnt enought data
+
+  const makePlaylistFromSong = async (playlistname) => {
+    let array = [];
+    await usesTools.map((item) => {
+      Spotify.makePlaylistFromArtistAndSong(item).then((result) => {
+        result.tracks.map((item) => {
+          console.log(item.uri);
+          array.push(item.uri);
+        });
       });
     });
     setTimeout(() => {
-      let flattened = artistSongArray.flat();
-      let mapped = [].concat(...flattened.map(Object.values));
-      console.log(mapped, "this is the final array");
-      let name = playListName;
-      let songURI = shuffle(mapped);
-      Spotify.savePlaylist(name, songURI);
-    }, 3000);
+      if (array.length === 0) {
+        notifyError();
+        return;
+      } else {
+        let name = playlistname;
+        let songURI = shuffle(array);
+        Spotify.savePlaylist(name, songURI);
+      }
+    }, 2000);
+    notify();
   };
-
-  const [menuOpen, setMenuOpen] = useState(true);
-  const [sliderWindowOpen, setSliderWindowOpen] = useState(false);
-  // Making playlist time
-  const [searchPageShowing, setSearchPageShowing] = useState(false);
 
   const notify = () =>
     toast.info("Playlist Created!", {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+
+  const notifyError = () =>
+    toast.error("Not enough similar artists", {
       position: "bottom-right",
       autoClose: 2000,
       hideProgressBar: true,
@@ -142,19 +177,13 @@ function App() {
             searchResults={searchResults}
             getSimilarArtists={getSimilarArtists}
           />
-
-          {/* <MyModal
-            modalOpen={modalOpen}
-            setModalOpen={setModalOpen}
-            getTopSongsSimilarArtists={getTopSongsSimilarArtists}
-          /> */}
-
           <SliderWindow
             sliderWindowOpen={sliderWindowOpen}
             setSliderWindowOpen={setSliderWindowOpen}
             getTopSongsSimilarArtists={getTopSongsSimilarArtists}
             notify={notify}
           />
+
           <ToastContainer
             position="bottom-right"
             autoClose={5000}
@@ -175,11 +204,23 @@ function App() {
             myFavoriteArtists={myFavoriteArtists}
             myFavoriteTracks={myFavoriteTracks}
             getSimilarArtists={getSimilarArtists}
+            showPlaylistBtnSongs={showPlaylistBtnSongs}
+            usesTools={usesTools}
+            updateUsesTools={updateUsesTools}
+            makePlaylistFromSong={makePlaylistFromSong}
+            setSliderWindowBottomOpen={setSliderWindowBottomOpen}
+            setSliderWindowOpen={setSliderWindowOpen}
           />
           <SliderWindow
             sliderWindowOpen={sliderWindowOpen}
             setSliderWindowOpen={setSliderWindowOpen}
             getTopSongsSimilarArtists={getTopSongsSimilarArtists}
+            notify={notify}
+          />
+          <SliderWindowBottom
+            sliderWindowBottomOpen={sliderWindowBottomOpen}
+            setSliderWindowBottomOpen={setSliderWindowBottomOpen}
+            makePlaylistFromSong={makePlaylistFromSong}
             notify={notify}
           />
           <ToastContainer
@@ -195,12 +236,12 @@ function App() {
           />
         </>
       )}
-
       <Menu
         setSliderWindowOpen={setSliderWindowOpen}
         menuOpen={menuOpen}
         getAccessToken={getAccessToken}
         setSearchPageShowing={setSearchPageShowing}
+        setSliderWindowBottomOpen={setSliderWindowBottomOpen}
         myDetails={myDetails}
       />
     </div>

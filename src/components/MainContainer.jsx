@@ -14,21 +14,18 @@ export default function MainContainer({
     <div className={`main-container ${menuOpen ? "" : "no-margin"}`}>
       <div className="container">
         <div className="main-header">Search Artist </div>
+
         <div
           className="main-image-wrapper"
           style={{
             backgroundImage:
               "linear-gradient(to right, rgba(7, 176, 242, 0.3), rgba(7, 176, 242, 0.3)), url('/dj.jpg')",
             backgroundBlendMode: "multiply",
-            // backgroundImage: "url(/dj.jpg)",
             backgroundPosition: "top",
-            // backgroundRepeat: "no-repeat",
+
             backgroundSize: "cover",
           }}
-        >
-          {/* <Image src="dj.jpg" /> */}
-        </div>
-
+        ></div>
         <SearchInput
           searchHandler={searchHandler}
           searchArtists={searchArtists}

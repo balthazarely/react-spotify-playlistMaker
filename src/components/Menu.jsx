@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Button, Icon } from "semantic-ui-react";
+import { Icon } from "semantic-ui-react";
 
 export default function Menu({
   menuOpen,
   setSliderWindowOpen,
+  setSliderWindowBottomOpen,
   setSearchPageShowing,
   myDetails,
 }) {
@@ -34,6 +35,7 @@ export default function Menu({
           onClick={() => {
             setSearchPageShowing(false);
             setSliderWindowOpen(false);
+            setSliderWindowBottomOpen(false);
             setBtnActive("favorite");
           }}
         >
@@ -73,6 +75,7 @@ export default function Menu({
               </>
             ) : null}
           </div> */}
+          {myDetails.display_name ? <div>{myDetails.display_name}</div> : null}
         </div>
       </div>
     </div>

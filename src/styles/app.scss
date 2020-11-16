@@ -2,16 +2,32 @@
   margin: 0;
   padding: 0;
   box-sizing: 0;
-  // overflow: hidden;
 }
 body {
   background: #f0f5f8;
+  // height: 100%;
 }
 
-.flex-horizontal {
+.flex-horizontal-spaced {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: red;
+  opacity: 0.5;
+  width: 100vw;
+  height: 100vh;
+  z-index: 121000;
 }
 
 @import "./login";
@@ -21,7 +37,8 @@ body {
 @import "./nav";
 @import "./result";
 @import "./input";
-@import "./modal";
 @import "./buttons";
 @import "./favorite";
 @import "./sliderWindow";
+@import "./checkboxs";
+@import "./animations";
