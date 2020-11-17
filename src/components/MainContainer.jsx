@@ -19,7 +19,7 @@ export default function MainContainer({
           className="main-image-wrapper"
           style={{
             backgroundImage:
-              "linear-gradient(to right, rgba(7, 176, 242, 0.3), rgba(7, 176, 242, 0.3)), url('/dj.jpg')",
+              "linear-gradient(to right, rgba(7, 176, 242, 0.3), rgba(7, 176, 242, 0.3)), url('/dj2.jpg')",
             backgroundBlendMode: "multiply",
             backgroundPosition: "top",
 

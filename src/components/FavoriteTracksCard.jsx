@@ -1,20 +1,26 @@
 import React, { useState } from "react";
-import { Label, Checkbox } from "semantic-ui-react";
+import { Icon, Checkbox } from "semantic-ui-react";
 
 export default function FavoriteTracksCard({
   song,
   index,
-  getSimilarSongsRecomendations,
   usesTools,
   updateUsesTools,
 }) {
-  const checkHandler = (e) => {
-    const tools = usesTools; //Array in parent component
-    const value = e.target.value; //Checkbox value
-    updateUsesTools(value);
+  const [isChecked, setIsChecked] = useState(false);
+  const checkHandler = (songID) => {
+    // const tools = usesTools; //Array in parent component
+    // const value = e.target.value; //Checkbox value
+    updateUsesTools(songID);
   };
   return (
-    <div className={"result-container"}>
+    <div
+      className={`result-container ${isChecked ? "active-result" : ""}`}
+      onClick={() => {
+        checkHandler(song.id);
+        setIsChecked(!isChecked);
+      }}
+    >
       <index className="index-wrapper">
         <div>{index + 1}</div>
       </index>
@@ -31,26 +37,11 @@ export default function FavoriteTracksCard({
           })}
         </div>
       </div>
-      {/* <div className="btn-wrapper"> */}
       <div class="checkbox-wrapper">
-        <input
-          type="checkbox"
-          id="test1"
-          className="checkmark"
-          label="Add"
-          value={song.id}
-          onChange={(e) => checkHandler(e)}
-        />
-
-        {/* <button
-          onClick={() =>
-            getSimilarSongsRecomendations(song.artists[0].id, song.id)
-          }
-        >
-          Make Playlist
-        </button> */}
-      </div>{" "}
-      {/* </div> */}
+        {isChecked ? (
+          <Icon name="check" size="large" style={{ color: "#07c7f2" }} />
+        ) : null}
+      </div>
     </div>
   );
 }

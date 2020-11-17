@@ -9,11 +9,12 @@
   cursor: pointer;
   animation: 0.3s ease-out 0s 1 slideInBottom;
   &:hover {
-    background: rgb(247, 247, 247);
+    background: rgb(240, 240, 240);
     button {
       opacity: 1;
     }
   }
+
   button {
     background: transparent;
     transition: all 0.35s;
@@ -51,7 +52,7 @@
   .checkbox-wrapper {
     position: absolute;
     right: 50px;
-    transform: translateY(-85%);
+    // transform: translateY(-85%);
     // border: 2px solid red;
   }
 
@@ -84,6 +85,13 @@
   justify-content: center;
   flex-direction: row;
   margin-left: 5px;
+}
+
+.active-result {
+  background: #ccf2fa;
+  &:hover {
+    background: #ccf2fa;
+  }
 }
 
 @media screen and (max-width: 768px) {

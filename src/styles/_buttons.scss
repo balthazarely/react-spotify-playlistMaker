@@ -19,6 +19,28 @@
   }
 }
 
+.button-large {
+  background: transparent;
+  transition: all 0.35s;
+  cursor: pointer;
+  padding: 0.8rem 2.5rem;
+  transition: all 0.3 ease;
+  outline: none;
+  margin: 2rem;
+  border: none;
+  font-size: 16px;
+  font-weight: 800;
+  // margin-right: 10px;
+  text-transform: uppercase;
+  color: white;
+  border-radius: 20px;
+  background: #07c7f2;
+  &:hover {
+    background: #03aed4;
+    color: white;
+  }
+}
+
 .button-small {
   background: transparent;
   transition: all 0.35s;

@@ -49,6 +49,13 @@
       background: rgb(240, 240, 240);
     }
   }
+  .error-message {
+    position: absolute;
+    margin-left: 5px;
+    margin-top: 2px;
+    font-size: 12px;
+    color: red;
+  }
 }
 
 .slider-open {

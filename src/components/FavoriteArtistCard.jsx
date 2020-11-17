@@ -14,7 +14,7 @@ export default function FavoriteArtistCard({ artist, getSimilarArtists }) {
         <Icon
           className="artist-play-icon"
           size="large"
-          name="play circle outline"
+          name="check circle outline"
           onClick={() => getSimilarArtists(artist.id)}
         />
       </div>

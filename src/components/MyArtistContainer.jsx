@@ -11,12 +11,10 @@ export default function MyArtistsContainer({
   getSimilarSongsRecomendations,
   setSliderWindowBottomOpen,
   setSliderWindowOpen,
-  //
   usesTools,
   updateUsesTools,
 }) {
   const [artistsShowing, setArtistShowing] = useState(true);
-  // console.log(myDetails);
 
   return (
     <div className={`main-container ${menuOpen ? "" : "no-margin"}`}>
@@ -40,7 +38,7 @@ export default function MyArtistsContainer({
           className="main-image-wrapper"
           style={{
             backgroundImage:
-              "linear-gradient(to right, rgba(7, 176, 242, 0.3), rgba(7, 176, 242, 0.3)), url('/dj2.jpg')",
+              "linear-gradient(to right, rgba(7, 176, 242, 0.3), rgba(7, 176, 242, 0.3)), url('/dj.jpg')",
             backgroundBlendMode: "darken",
             backgroundPosition: "top",
             backgroundSize: "cover",
@@ -73,21 +71,6 @@ export default function MyArtistsContainer({
               Songs
             </div>
           </div>
-
-          {/* <>
-            <div
-              className={`playlist-btn-wrapper ${
-                usesTools.length > 0 ? "" : "hidden"
-              }`}
-            >
-              <button
-                className="button-primary"
-                onClick={() => setSliderWindowBottomOpen(true)}
-              >
-                MAKE PLAYLIST
-              </button>
-            </div>
-          </> */}
         </div>
         {artistsShowing ? (
           <FavoriteArtistContainer

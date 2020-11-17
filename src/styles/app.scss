@@ -5,7 +5,7 @@
 }
 body {
   background: #f0f5f8;
-  // height: 100%;
+  // overflow-y: hidden;
 }
 
 .flex-horizontal-spaced {
@@ -15,19 +15,12 @@ body {
   justify-content: space-between;
 }
 
-.hidden {
-  opacity: 0;
+.lock-overflow {
+  overflow-y: hidden;
 }
 
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: red;
-  opacity: 0.5;
-  width: 100vw;
-  height: 100vh;
-  z-index: 121000;
+.hidden {
+  opacity: 0;
 }
 
 @import "./login";
@@ -42,3 +35,4 @@ body {
 @import "./sliderWindow";
 @import "./checkboxs";
 @import "./animations";
+@import "./infowindow";

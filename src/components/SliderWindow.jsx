@@ -5,7 +5,8 @@ export default function SliderWindow({
   getTopSongsSimilarArtists,
   sliderWindowOpen,
   setSliderWindowOpen,
-  notify,
+  errorMessage,
+  setErrorMessage,
 }) {
   const [playlistName, setPlaylistName] = useState("");
   const [inputValue, setInputValue] = useState("");
@@ -26,13 +27,21 @@ export default function SliderWindow({
             setInputValue(e.target.value);
           }}
         />
+        {errorMessage ? (
+          <div className="error-message">Please enter name</div>
+        ) : null}
         <div className="btn-container">
           <button
             className={"btn success"}
             onClick={() => {
-              getTopSongsSimilarArtists(playlistName);
-              setSliderWindowOpen(false);
-              setInputValue("");
+              if (playlistName) {
+                getTopSongsSimilarArtists(playlistName);
+                setSliderWindowOpen(false);
+                setInputValue("");
+                setErrorMessage(false);
+              } else {
+                setErrorMessage(true);
+              }
             }}
           >
             Make Playlist
@@ -42,6 +51,7 @@ export default function SliderWindow({
             onClick={() => {
               setSliderWindowOpen(false);
               setInputValue("");
+              setErrorMessage(false);
             }}
           >
             cancel
